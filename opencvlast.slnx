@@ -1,7 +1,55 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="opencvlast/opencvlast.vcxproj" Id="39bb474e-325f-4677-bcf1-d3525ba1fcb7" />
-</Solution>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main() {
+    // Read image
+    string path = "Resources/armor.jpg";
+    Mat img = imread(path);
+    if (img.empty()) {
+        cout << "Error: Cannot read image! Check the file path." << endl;
+        return -1;
+    }
+
+    // Convert to grayscale
+    Mat imgGray;
+    cvtColor(img, imgGray, COLOR_BGR2GRAY);
+
+    // Binarization: keep only bright areas (light bars)
+    Mat imgBinary;
+    threshold(imgGray, imgBinary, 200, 255, THRESH_BINARY);
+
+    // Morphological operation to remove noise
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+    morphologyEx(imgBinary, imgBinary, MORPH_CLOSE, kernel);
+
+    // Find all contours of white areas
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+    findContours(imgBinary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+    // Draw bounding boxes for valid light bars
+    Mat imgResult = img.clone();
+    for (size_t i = 0; i < contours.size(); i++) {
+        Rect rect = boundingRect(contours[i]);
+        double aspectRatio = (double)rect.height / rect.width;
+        // Filter by aspect ratio (light bars are tall and thin) and area
+        if (aspectRatio > 3 && rect.area() > 50) {
+            rectangle(imgResult, rect, Scalar(0, 255, 0), 2);
+        }
+    }
+
+    // Show all windows
+    imshow("Original Image", img);
+    imshow("Grayscale Image", imgGray);
+    imshow("Binary Image", imgBinary);
+    imshow("Light Bar Detection", imgResult);
+
+    waitKey(0);
+    destroyAllWindows();
+    return 0;
+}
