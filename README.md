@@ -1,7 +1,7 @@
 <img width="1410" height="1205" alt="image" src="https://github.com/user-attachments/assets/06097dc4-2c7f-49ac-8bb8-ab8955f6dc44" />
+<img width="1410" height="1205" alt="result" src="https://github.com/user-attachments/assets/9d6504ed-c26d-4e8d-af6b-12e0ccdff1d2" />
 
 src="https://github.com/user-attachments/assets/0f5e0208-b2d6-4dd2-aa69-53a9da2c9da0" />## 效果展示
-- 原始图像与识别结果：![Uploading image.png…]()
 
 
   ![装甲板灯条识别结果](<img width="1410" height="1205" alt="image" src="https://github.com/user-attachments/assets/256bfe80-5edf-407e-af19-d012a857eb78" />
