@@ -1,3 +1,8 @@
+
+
+https://github.com/user-attachments/assets/030c81f3-3100-45c5-95d8-0b207d06df0a
+
+
 ---
 
 # 基于 OpenCV 的机甲大师装甲板灯条识别程序 —— 代码结构说明
@@ -90,3 +95,5 @@
   (保存为 mp4)             (屏幕实时可见)
 
 ```
+
+
